@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Kucing Putih - Biru Muda</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #bae6fd 0%, #ffffff 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Container Bunga / Kelopak Jatuh */
+    .sakura-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .petal {
+      position: absolute;
+      background: #7dd3fc;
+      border-radius: 150% 0 150% 0;
+      opacity: 0.7;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        opacity: 0.8;
+        top: -10%;
+        transform: translateX(0) rotate(0deg);
+      }
+      100% {
+        opacity: 0.2;
+        top: 110%;
+        transform: translateX(100px) rotate(360deg);
+      }
+    }
+
+    /* Variasi Ukuran dan Posisi Bunga */
+    .petal:nth-child(1) { left: 10%; width: 12px; height: 12px; animation-duration: 7s; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 20%; width: 8px; height: 8px; animation-duration: 10s; animation-delay: 2s; }
+    .petal:nth-child(3) { left: 35%; width: 10px; height: 10px; animation-duration: 8s; animation-delay: 4s; }
+    .petal:nth-child(4) { left: 50%; width: 14px; height: 14px; animation-duration: 6s; animation-delay: 1s; }
+    .petal:nth-child(5) { left: 65%; width: 11px; height: 11px; animation-duration: 9s; animation-delay: 3s; }
+    .petal:nth-child(6) { left: 80%; width: 9px; height: 9px; animation-duration: 11s; animation-delay: 5s; }
+    .petal:nth-child(7) { left: 90%; width: 13px; height: 13px; animation-duration: 7s; animation-delay: 2s; }
+
+    /* Login Wrapper (Ukuran Diperkecil menjadi 270px) */
+    .login-wrapper {
+      position: relative;
+      width: 270px;
+      z-index: 2;
+      animation: dropDownSlow 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes dropDownSlow {
+      0% {
+        opacity: 0;
+        transform: translateY(-200px);
+      }
+      60% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Karakter Kucing Putih (Scaled Down) */
+    .cat-avatar {
+      position: relative;
+      width: 80px;
+      height: 70px;
+      margin: 0 auto -16px auto;
+      z-index: 3;
+    }
+
+    .cat-head {
+      width: 72px;
+      height: 64px;
+      background: #ffffff;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      left: 4px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Telinga Kucing */
+    .ear {
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 24px solid #ffffff;
+      position: absolute;
+      top: -12px;
+    }
+
+    .ear.left { 
+      left: 6px; 
+      transform: rotate(-15deg);
+      animation: twitchLeft 4s infinite;
+    }
+
+    .ear.right { 
+      right: 6px; 
+      transform: rotate(15deg);
+      animation: twitchRight 4s infinite;
+    }
+
+    .ear-inner {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 14px solid #bae6fd;
+      position: absolute;
+      top: 6px;
+      left: -6px;
+    }
+
+    /* Mata & Hidung Kucing */
+    .eye {
+      width: 9px;
+      height: 9px;
+      background: #333333;
+      border-radius: 50%;
+      position: absolute;
+      top: 28px;
+      animation: blink 4s infinite;
+    }
+
+    .eye.left { left: 18px; }
+    .eye.right { right: 18px; }
+
+    .nose {
+      width: 6px;
+      height: 5px;
+      background: #38bdf8;
+      border-radius: 50%;
+      position: absolute;
+      top: 36px;
+      left: 33px;
+    }
+
+    /* Card Login Form Compact */
+    .login-box {
+      background: #ffffff;
+      padding: 28px 20px 22px 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
+      text-align: center;
+      border: 1px solid rgba(186, 230, 253, 0.5);
+    }
+
+    .login-box h2 {
+      color: #0284c7;
+      margin-bottom: 16px;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .input-field {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 9px 12px;
+      background: #f0f9ff;
+      border: 1.5px solid #e0f2fe;
+      border-radius: 8px;
+      outline: none;
+      color: #333;
+      font-size: 12.5px;
+      transition: 0.3s;
+    }
+
+    .input-field input:focus {
+      border-color: #38bdf8;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 9px;
+      background: #38bdf8;
+      border: none;
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-login:hover {
+      background: #0284c7;
+      transform: translateY(-1px);
+    }
+
+    @keyframes blink {
+      0%, 90%, 100% { transform: scaleY(1); }
+      95% { transform: scaleY(0.1); }
+    }
+
+    @keyframes twitchLeft {
+      0%, 100% { transform: rotate(-15deg); }
+      50% { transform: rotate(-22deg); }
+    }
+
+    @keyframes twitchRight {
+      0%, 100% { transform: rotate(15deg); }
+      55% { transform: rotate(22deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Kelopak Bunga Jatuh -->
+  <div class="sakura-container">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+  </div>
+
+  <div class="login-wrapper">
+    <!-- Karakter Kucing Putih -->
+    <div class="cat-avatar">
+      <div class="cat-head">
+        <div class="ear left"><div class="ear-inner"></div></div>
+        <div class="ear right"><div class="ear-inner"></div></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nose"></div>
+      </div>
+    </div>
+
+    <!-- Form Login -->
+    <div class="login-box">
+      <h2>Too bad you have to log in first to see what's inside.</h2>
+    <form id="formLogin">
+  <div class="input-field">
+    <input 
+      type="password" 
+      id="password"
+      placeholder="Password" 
+      required 
+      autocomplete="off">
+  </div>
+
+  <button type="submit" class="btn-login">
+    Masuk
+  </button>
+</form>
+    </div>
+  </div>
+
+</body>
+
+<script>
+document.getElementById("formLogin").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const password = document.getElementById("password").value;
+
+    // GANTI dengan password yang diinginkan
+    const passwordBenar = "sancit";
+
+    if (password === passwordBenar) {
+        window.location.href = "index.html";
+    } else {
+        alert("Password salah 🥺");
+    }
+});
+</script>
+</html>
